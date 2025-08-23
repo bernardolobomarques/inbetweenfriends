@@ -1,3 +1,4 @@
+
 import { Header } from '@/components/header';
 import { PostCard } from '@/components/post-card';
 import { getPosts } from '@/lib/posts';
@@ -20,7 +21,11 @@ export default async function Home() {
       <Header />
       <main className="flex-grow">
         <section className="relative pt-32 pb-20 text-center bg-background isolate">
-            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('/amigas-blog-1724424360341.png')]" data-ai-hint="forest mountains" />
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+              style={{ backgroundImage: "url('/amigas-blog-1724424360341.png')" }}
+              data-ai-hint="forest mountains" 
+            />
             <div className="absolute inset-0" style={{ backgroundColor: 'rgba(191, 169, 128, 0.5)' }} />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
