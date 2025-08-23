@@ -36,9 +36,8 @@ export default function LoginPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // IMPORTANT: This is a mock authentication for demonstration purposes.
-    // In a real application, you would make an API call to your backend (e.g., n8n)
-    // to securely verify the user's credentials.
-    if (values.username === "admin" && values.password === "password") {
+    if (values.username === "admin" && values.password === "123") {
+       sessionStorage.setItem('isAdminAuthenticated', 'true');
        toast({
         title: "Login Successful",
         description: "Redirecting to the admin panel...",
