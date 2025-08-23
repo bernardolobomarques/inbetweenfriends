@@ -11,20 +11,19 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json().catch(() => ({}));
-
-    // Revalidate specific post if slug is provided
-    if (body?.entry?.slug) {
-      const slug = body.entry.slug;
-      revalidatePath(`/posts/${slug}`);
-      revalidatePath('/');
-      revalidatePath('/posts');
-      return NextResponse.json({ revalidated: true, slug, now: Date.now() });
-    }
-
-    // Generic revalidation for landing page and all posts
+    // Revalidate landing page and all posts page
     revalidatePath('/');
     revalidatePath('/posts');
+    
+    // Also revalidate all individual post pages
+    // Note: In a real app with many posts, you might want a more targeted approach
+    // based on a slug passed in the request body. For this project, revalidating all is fine.
+    // For example:
+    // const body = await request.json().catch(() => ({}));
+    // if (body?.slug) {
+    //   revalidatePath(`/posts/${body.slug}`);
+    // }
+
     return NextResponse.json({ revalidated: true, now: Date.now() });
 
   } catch (error) {

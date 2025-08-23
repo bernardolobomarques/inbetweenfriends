@@ -78,6 +78,10 @@ export default function AdminPage() {
       // Step 2: Call the revalidate API route to update the static pages
       const revalidateResponse = await fetch(`/api/revalidate?secret=AMIGAS_SECRET_REVALIDATE_TOKEN`, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}), // Sending empty body
       });
       
       if (!revalidateResponse.ok) {
