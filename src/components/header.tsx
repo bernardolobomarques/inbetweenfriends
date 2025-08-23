@@ -60,8 +60,8 @@ export function Header() {
               <Link href="/" className="font-headline hover:text-primary transition-colors duration-300">
                 Home
               </Link>
-              <Link href="/#about" className="font-headline hover:text-primary transition-colors duration-300">
-                About
+              <Link href="/posts" className="font-headline hover:text-primary transition-colors duration-300">
+                All Posts
               </Link>
             </nav>
             <button className="md:hidden z-50" onClick={toggleMenu} aria-label="Toggle menu">
@@ -79,8 +79,8 @@ export function Header() {
             <Link href="/" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
               Home
             </Link>
-            <Link href="/#about" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
-              About
+            <Link href="/posts" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
+              All Posts
             </Link>
           </nav>
         </div>
