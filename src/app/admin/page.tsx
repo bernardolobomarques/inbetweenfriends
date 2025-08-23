@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { addPost } from '@/lib/posts';
 
 const postFormSchema = z.object({
   title: z.string().min(1, "Title is required."),
@@ -57,32 +58,24 @@ export default function AdminPage() {
     setIsSubmitting(true);
     toast({ title: "Creating post..." });
 
-    // In a real application, this would send the data to your n8n webhook.
-    // The webhook would then update your database and call the revalidate endpoint.
+    // This simulates calling your n8n webhook which would then add the post to your data source.
     const webhookUrl = "https://your-n8n-webhook-url.com/placeholder"; // <-- REPLACE WITH YOUR N8N WEBHOOK
 
     try {
-      // Step 1: Simulate sending data to the n8n webhook
-      console.log("Submitting to webhook:", {
-          ...values,
-          // You would generate these on the backend/n8n side
-          slug: values.title.toLowerCase().replace(/\s+/g, '-'),
-          featuredImage: 'https://placehold.co/800x600.png',
-          authorImage: 'https://placehold.co/100x100.png',
-      });
-      // const response = await fetch(webhookUrl, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(values),
-      // });
+      // Step 1: Add the post to our in-memory cache for this demo.
+      // In your real app, your n8n webhook would handle this.
+      const newPostData = {
+        ...values,
+        slug: values.title.toLowerCase().replace(/\s+/g, '-'),
+        featuredImage: 'https://placehold.co/800x600.png',
+        authorImage: 'https://placehold.co/100x100.png',
+      };
+      await addPost(newPostData);
 
-      // if (!response.ok) {
-      //   throw new Error('Failed to submit to webhook.');
-      // }
-
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
-
-       // Step 2: Call the revalidate API route to update the static pages
+      console.log("Simulating webhook call to:", webhookUrl);
+      console.log("Post data:", newPostData);
+      
+      // Step 2: Call the revalidate API route to update the static pages
       const revalidateResponse = await fetch(`/api/revalidate?secret=AMIGAS_SECRET_REVALIDATE_TOKEN`, {
         method: 'POST',
       });
