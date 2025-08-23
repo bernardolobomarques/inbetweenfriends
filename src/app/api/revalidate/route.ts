@@ -4,19 +4,21 @@ import { revalidatePath } from 'next/cache';
 export async function POST(request: NextRequest) {
   const secret = request.nextUrl.searchParams.get('secret');
 
-  // In a real app, use process.env.REVALIDATION_TOKEN
+  // IMPORTANT: In a real app, use an environment variable for the secret.
+  // process.env.REVALIDATION_TOKEN
   if (secret !== 'AMIGAS_SECRET_REVALIDATE_TOKEN') {
     return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
   }
 
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
 
-    // Revalidate specific post if slug is provided (e.g., from CMS webhook)
+    // Revalidate specific post if slug is provided
     if (body?.entry?.slug) {
       const slug = body.entry.slug;
-      revalidatePath('/');
       revalidatePath(`/posts/${slug}`);
+      revalidatePath('/');
+      revalidatePath('/posts');
       return NextResponse.json({ revalidated: true, slug, now: Date.now() });
     }
 

@@ -35,7 +35,6 @@ export default function LoginPage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // IMPORTANT: This is a mock authentication for demonstration purposes.
     if (values.username === "admin" && values.password === "123") {
        sessionStorage.setItem('isAdminAuthenticated', 'true');
        toast({

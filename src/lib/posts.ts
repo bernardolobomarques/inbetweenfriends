@@ -1,7 +1,11 @@
 import type { Post } from '@/types';
 
-const posts: Post[] = [
-  {
+// This is now a mock API endpoint. In a real application, this would fetch from
+// your headless CMS, database, or n8n workflow.
+const MOCK_API_URL = "https://my-json-server.typicode.com/typicode/demo/posts";
+
+const initialPosts: Post[] = [
+    {
     id: 1,
     slug: 'the-art-of-mindful-living',
     title: 'The Art of Mindful Living in a Hectic World',
@@ -55,15 +59,48 @@ const posts: Post[] = [
   },
 ];
 
+
+// In-memory cache to simulate a database.
+// In a real app, n8n would update your actual data source (e.g., Supabase, Firestore, etc.).
+let postsCache: Post[] = [...initialPosts];
+
+// NOTE: This is a temporary solution for demonstration.
+// Your n8n workflow should be the single source of truth for creating posts.
+// This function simulates adding the post to a database.
+export async function addPost(newPostData: Omit<Post, 'id' | 'date' | 'publishDate'>): Promise<Post> {
+  await new Promise(resolve => setTimeout(resolve, 500)); // Simulate network latency
+
+  const now = new Date();
+  const newPost: Post = {
+    id: postsCache.length + 1,
+    ...newPostData,
+    date: now.toISOString(),
+    publishDate: now.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }),
+  };
+
+  postsCache.unshift(newPost); // Add to the beginning of the array
+  return newPost;
+}
+
 export async function getPosts(): Promise<Post[]> {
-  // Simulate network delay
+  // Simulate fetching from an API.
+  // The revalidate function will clear Next.js's cache, forcing it to call this function again.
+  console.log("Fetching posts from data source...");
   await new Promise(resolve => setTimeout(resolve, 200));
-  const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // The sort ensures the latest posts are always first.
+  const sortedPosts = postsCache.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return sortedPosts;
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-  // Simulate network delay
+  console.log(`Fetching post by slug: ${slug}`);
   await new Promise(resolve => setTimeout(resolve, 200));
-  return posts.find(post => post.slug === slug);
+
+  const allPosts = await getPosts();
+  return allPosts.find(post => post.slug === slug);
 }
