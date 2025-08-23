@@ -13,7 +13,7 @@ import {
 
 export default async function Home() {
   const posts = await getPosts();
-  const latestPosts = posts.slice(0, 6);
+  const latestPosts = posts.slice(0, 5);
 
   return (
     <div className="min-h-screen flex flex-col">
