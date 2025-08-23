@@ -7,11 +7,28 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from "next/link";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+
+const formSchema = z.object({
+  title: z.string().min(1, 'Title is required.'),
+  excerpt: z.string().min(1, 'Excerpt is required.'),
+  content: z.string().min(1, 'Content is required.'),
+  category: z.string().min(1, 'Category is required.'),
+  authorName: z.string().min(1, 'Author name is required.'),
+});
 
 export default function AdminPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -25,6 +42,58 @@ export default function AdminPage() {
     };
     checkAuth();
   }, [router]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: '',
+      excerpt: '',
+      content: '',
+      category: '',
+      authorName: 'Admin',
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    // This is where you would send the data to your n8n webhook
+    const webhookUrl = "YOUR_N8N_WEBHOOK_URL_HERE"; // <-- IMPORTANT: Replace with your actual n8n webhook URL
+
+    try {
+      // In a real scenario, your n8n workflow would:
+      // 1. Receive this POST request.
+      // 2. Format the data into a new Post object.
+      // 3. Use a Git node (e.g., GitHub/GitLab) to read `src/lib/posts.ts`.
+      // 4. Add the new post to the array in the file.
+      // 5. Commit the updated file back to your repository.
+      // 6. This new commit would trigger a redeployment on Vercel.
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error('Webhook response was not ok.');
+      }
+      
+      toast({
+        title: "Post Submitted!",
+        description: "Your n8n workflow has been triggered. A new deployment will start shortly.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Failed to trigger n8n workflow:", error);
+      toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: "Could not send post data to the webhook. Check the console and your n8n setup.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   const handleLogout = () => {
     sessionStorage.removeItem('isAdminAuthenticated');
@@ -81,24 +150,75 @@ export default function AdminPage() {
             </div>
         </header>
         <main className="container mx-auto p-4 sm:p-6 lg:p-8">
-             <Card className="max-w-4xl mx-auto">
-                <CardHeader>
-                    <CardTitle className="text-2xl font-body">Content Management</CardTitle>
-                    <CardDescription>How to add, edit, or delete posts.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4 text-card-foreground">
-                    <p>
-                        With this new static architecture, managing content is done directly in the source code.
-                    </p>
-                    <p>
-                        To add, edit, or delete a post, you will need to modify the array of posts located in the file:
-                        <code className="bg-muted text-muted-foreground font-code p-1 rounded-md mx-1">src/lib/posts.ts</code>.
-                    </p>
-                    <p>
-                        Any changes committed to your Git repository will automatically trigger a new deployment on Vercel, updating your live site with the new content. This approach is fast, secure, and ideal for static sites.
-                    </p>
-                </CardContent>
-            </Card>
+            <div className="grid gap-8 max-w-4xl mx-auto">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-body">Content Management</CardTitle>
+                        <CardDescription>How to add, edit, or delete posts.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4 text-card-foreground">
+                        <p>
+                            To manually add, edit, or delete a post, you can modify the array of posts located in the file:
+                            <code className="bg-muted text-muted-foreground font-code p-1 rounded-md mx-1">src/lib/posts.ts</code>.
+                             Any changes committed to your Git repository will automatically trigger a new deployment, updating your live site.
+                        </p>
+                         <p>
+                            Alternatively, use the form below to add a new post. This will send the data to a pre-configured n8n workflow that will automatically update the posts file and trigger a new deployment.
+                        </p>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-body">Create New Post</CardTitle>
+                        <CardDescription>Fill out the form below to add a new blog post.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                <FormField control={form.control} name="title" render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title</FormLabel>
+                                        <FormControl><Input placeholder="Your Post Title" {...field} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}/>
+                                <FormField control={form.control} name="excerpt" render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Excerpt</FormLabel>
+                                        <FormControl><Textarea placeholder="A short summary of the post..." {...field} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}/>
+                                <FormField control={form.control} name="content" render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Content</FormLabel>
+                                        <FormControl><Textarea placeholder="The full content of the post (supports HTML)..." {...field} rows={10} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}/>
+                                <FormField control={form.control} name="category" render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Category</FormLabel>
+                                        <FormControl><Input placeholder="e.g., Mindfulness" {...field} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}/>
+                                 <FormField control={form.control} name="authorName" render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Author Name</FormLabel>
+                                        <FormControl><Input {...field} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}/>
+                                <Button type="submit" size="lg" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Submitting...' : 'Create Post'}
+                                </Button>
+                            </form>
+                        </Form>
+                    </CardContent>
+                </Card>
+             </div>
         </main>
     </div>
   );
