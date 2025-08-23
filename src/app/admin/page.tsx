@@ -59,15 +59,12 @@ export default function AdminPage() {
     const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/a4566907-4030-4f23-a271-8f2aa7d12a4e"; 
 
     try {
-      const response = await fetch(webhookUrl, {
+      await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
+        mode: 'no-cors' // This should help with the CORS issue
       });
-
-      if (!response.ok) {
-        throw new Error('Webhook response was not ok.');
-      }
       
       toast({
         title: "Post Submitted!",
