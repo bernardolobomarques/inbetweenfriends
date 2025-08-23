@@ -28,7 +28,6 @@ export default function AdminPage() {
   const { toast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -54,20 +53,12 @@ export default function AdminPage() {
     },
   });
 
+  const { isSubmitting } = form.formState;
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-    // This is where you would send the data to your n8n webhook
-    const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/a4566907-4030-4f23-a271-8f2aa7d12a4e"; // <-- IMPORTANT: Replace with your actual n8n webhook URL
+    const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/a4566907-4030-4f23-a271-8f2aa7d12a4e"; 
 
     try {
-      // In a real scenario, your n8n workflow would:
-      // 1. Receive this POST request.
-      // 2. Format the data into a new Post object.
-      // 3. Use a Git node (e.g., GitHub/GitLab) to read `src/lib/posts.ts`.
-      // 4. Add the new post to the array in the file.
-      // 5. Commit the updated file back to your repository.
-      // 6. This new commit would trigger a redeployment on Vercel.
-
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -90,8 +81,6 @@ export default function AdminPage() {
         title: "Submission Failed",
         description: "Could not send post data to the webhook. Check the console and your n8n setup.",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   }
 
