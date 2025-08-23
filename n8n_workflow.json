@@ -1,0 +1,114 @@
+
+{
+  "name": "Next.js Blog Post Creation",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1e96c9d7-6e31-4a1e-a9f2-235832a8138b",
+      "name": "When Webhook is called",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        860,
+        300
+      ],
+      "webhookId": "b1b74e6c-3e6f-4c12-a72e-3351d3885d51"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "posts",
+        "columns": [
+          {
+            "column": "title",
+            "value": "={{$json.body.title}}"
+          },
+          {
+            "column": "slug",
+            "value": "={{$json.body.slug}}"
+          },
+          {
+            "column": "excerpt",
+            "value": "={{$json.body.excerpt}}"
+          },
+          {
+            "column": "content",
+            "value": "={{$json.body.content}}"
+          },
+          {
+            "column": "category",
+            "value": "={{$json.body.category}}"
+          },
+          {
+            "column": "author_name",
+            "value": "={{$json.body.authorName}}"
+          },
+          {
+            "column": "author_image",
+            "value": "={{$json.body.authorImage}}"
+          },
+          {
+            "column": "featured_image",
+            "value": "={{$json.body.featuredImage}}"
+          }
+        ],
+        "options": {}
+      },
+      "id": "787c8dcf-3c4a-4e86-9a25-e51c6c5fd377",
+      "name": "Insert to Supabase DB",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "position": [
+        1080,
+        300
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_SUPABASE_CREDENTIALS_ID",
+          "name": "Supabase Credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "YOUR_WEBSITE_URL/api/revalidate?secret=AMIGAS_SECRET_REVALIDATE_TOKEN",
+        "authentication": "none",
+        "options": {}
+      },
+      "id": "180b7d34-a034-45e0-844c-25a815777123",
+      "name": "Revalidate Next.js",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1300,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "When Webhook is called": {
+      "main": [
+        [
+          {
+            "node": "Insert to Supabase DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert to Supabase DB": {
+      "main": [
+        [
+          {
+            "node": "Revalidate Next.js",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}
