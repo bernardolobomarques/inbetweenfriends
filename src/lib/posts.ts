@@ -11,7 +11,8 @@ const posts: Post[] = [
     authorName: 'Elena Rodriguez',
     authorImage: 'https://placehold.co/100x100.png',
     publishDate: 'October 26, 2023',
-    date: '2023-10-26T10:00:00Z'
+    date: '2023-10-26T10:00:00Z',
+    category: 'Mindfulness'
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ const posts: Post[] = [
     authorName: 'Sofia Chen',
     authorImage: 'https://placehold.co/100x100.png',
     publishDate: 'October 22, 2023',
-    date: '2023-10-22T10:00:00Z'
+    date: '2023-10-22T10:00:00Z',
+    category: 'Friendship'
   },
   {
     id: 3,
@@ -35,7 +37,8 @@ const posts: Post[] = [
     authorName: 'Isabella Garcia',
     authorImage: 'https://placehold.co/100x100.png',
     publishDate: 'October 18, 2023',
-    date: '2023-10-18T10:00:00Z'
+    date: '2023-10-18T10:00:00Z',
+    category: 'Creativity'
   },
     {
     id: 4,
@@ -47,7 +50,8 @@ const posts: Post[] = [
     authorName: 'Chloe Dubois',
     authorImage: 'https://placehold.co/100x100.png',
     publishDate: 'October 15, 2023',
-    date: '2023-10-15T10:00:00Z'
+    date: '2023-10-15T10:00:00Z',
+    category: 'Travel'
   },
 ];
 

@@ -20,6 +20,7 @@ export default function PostsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     async function fetchPosts() {
@@ -35,10 +36,16 @@ export default function PostsPage() {
     fetchPosts();
   }, []);
 
+  const categories = useMemo(() => {
+    const allCategories = posts.map(post => post.category);
+    return ['all', ...Array.from(new Set(allCategories))];
+  }, [posts]);
+
   const filteredAndSortedPosts = useMemo(() => {
     return posts
       .filter(post =>
-        post.title.toLowerCase().includes(searchTerm.toLowerCase())
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (selectedCategory === 'all' || post.category === selectedCategory)
       )
       .sort((a, b) => {
         const dateA = new Date(a.date).getTime();
@@ -49,7 +56,7 @@ export default function PostsPage() {
           return dateA - dateB;
         }
       });
-  }, [posts, searchTerm, sortOrder]);
+  }, [posts, searchTerm, sortOrder, selectedCategory]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -76,6 +83,18 @@ export default function PostsPage() {
                 onChange={e => setSearchTerm(e.target.value)}
                 className="max-w-sm"
               />
+               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectValue placeholder="Filter by category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map(category => (
+                    <SelectItem key={category} value={category}>
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <Select value={sortOrder} onValueChange={setSortOrder}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder="Sort by" />

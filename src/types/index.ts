@@ -9,4 +9,5 @@ export interface Post {
   authorImage: string;
   publishDate: string;
   date: string;
+  category: string;
 }
