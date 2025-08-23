@@ -57,7 +57,7 @@ export default function AdminPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     // This is where you would send the data to your n8n webhook
-    const webhookUrl = "YOUR_N8N_WEBHOOK_URL_HERE"; // <-- IMPORTANT: Replace with your actual n8n webhook URL
+    const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/a4566907-4030-4f23-a271-8f2aa7d12a4e"; // <-- IMPORTANT: Replace with your actual n8n webhook URL
 
     try {
       // In a real scenario, your n8n workflow would:
