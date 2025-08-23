@@ -76,10 +76,10 @@ export function Header() {
           onClick={() => setIsMenuOpen(false)}
         >
           <nav className="flex flex-col items-center space-y-8 text-2xl">
-            <Link href="/" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
+            <Link href="/" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
               Home
             </Link>
-            <Link href="/posts" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
+            <Link href="/posts" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
               All Posts
             </Link>
           </nav>
