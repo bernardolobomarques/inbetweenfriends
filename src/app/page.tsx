@@ -23,7 +23,7 @@ export default async function Home() {
         <section className="relative pt-32 pb-20 text-center bg-background isolate">
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-              style={{ backgroundImage: "url('/amigas-blog-1724424360341.png')" }}
+              style={{ backgroundImage: "url('/amigas-blog-1724424422209.png')" }}
               data-ai-hint="forest mountains" 
             />
             <div className="absolute inset-0" style={{ backgroundColor: 'rgba(191, 169, 128, 0.5)' }} />
