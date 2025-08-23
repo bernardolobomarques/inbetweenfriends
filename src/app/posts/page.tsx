@@ -1,9 +1,55 @@
+"use client";
+
+import { useState, useEffect, useMemo } from 'react';
 import { Header } from '@/components/header';
 import { PostCard } from '@/components/post-card';
 import { getPosts } from '@/lib/posts';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Post } from '@/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export default async function PostsPage() {
-  const posts = await getPosts();
+export default function PostsPage() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('newest');
+
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const fetchedPosts = await getPosts();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPosts();
+  }, []);
+
+  const filteredAndSortedPosts = useMemo(() => {
+    return posts
+      .filter(post =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        if (sortOrder === 'newest') {
+          return dateB - dateA;
+        } else {
+          return dateA - dateB;
+        }
+      });
+  }, [posts, searchTerm, sortOrder]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -20,15 +66,52 @@ export default async function PostsPage() {
           </div>
         </section>
 
-        <section className="py-20 bg-card">
+        <section className="py-12 bg-card">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post, index) => (
-                <div key={post.id} className="animate-in fade-in slide-in-from-bottom-5" style={{ animationDelay: `${index * 150}ms`}}>
-                  <PostCard post={post} />
-                </div>
-              ))}
+            <div className="flex flex-col md:flex-row gap-4 mb-12">
+              <Input
+                type="text"
+                placeholder="Search by post title..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                className="max-w-sm"
+              />
+              <Select value={sortOrder} onValueChange={setSortOrder}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="newest">Newest</SelectItem>
+                  <SelectItem value="oldest">Oldest</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
+            
+            {loading ? (
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className="space-y-4">
+                    <Skeleton className="h-[250px] w-full" />
+                    <Skeleton className="h-8 w-3/4" />
+                    <Skeleton className="h-12 w-full" />
+                    <Skeleton className="h-6 w-1/2" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredAndSortedPosts.map((post, index) => (
+                  <div key={post.id} className="animate-in fade-in slide-in-from-bottom-5" style={{ animationDelay: `${index * 100}ms`}}>
+                    <PostCard post={post} />
+                  </div>
+                ))}
+              </div>
+            )}
+             {filteredAndSortedPosts.length === 0 && !loading && (
+              <div className="text-center py-16">
+                <p className="text-xl text-muted-foreground">No posts found.</p>
+              </div>
+            )}
           </div>
         </section>
       </main>
