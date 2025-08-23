@@ -108,7 +108,7 @@ export default function PostsPage() {
             
             {loading ? (
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {Array.from({ length: 3 }).map((_, index) => (
+                {Array.from({ length: 6 }).map((_, index) => (
                   <div key={index} className="space-y-4">
                     <Skeleton className="h-[250px] w-full" />
                     <Skeleton className="h-8 w-3/4" />
@@ -135,7 +135,7 @@ export default function PostsPage() {
         </section>
       </main>
 
-      <footer className="bg-secondary py-8">
+      <footer className="bg-background border-t py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
           <p className="font-headline">&copy; {new Date().getFullYear()} Amigas Blog. All Rights Reserved.</p>
         </div>
