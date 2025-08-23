@@ -53,14 +53,14 @@ export function Header() {
       )}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="text-2xl font-headline font-bold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/" className="text-2xl font-body font-bold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Amigas Blog
             </Link>
             <nav className="hidden md:flex items-center space-x-8 text-lg">
-              <Link href="/" className="font-body hover:text-primary transition-colors duration-300">
+              <Link href="/" className="font-headline hover:text-primary transition-colors duration-300">
                 Home
               </Link>
-              <Link href="/#about" className="font-body hover:text-primary transition-colors duration-300">
+              <Link href="/#about" className="font-headline hover:text-primary transition-colors duration-300">
                 About
               </Link>
             </nav>
@@ -76,10 +76,10 @@ export function Header() {
           onClick={() => setIsMenuOpen(false)}
         >
           <nav className="flex flex-col items-center space-y-8 text-2xl">
-            <Link href="/" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
+            <Link href="/" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
               Home
             </Link>
-            <Link href="/#about" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
+            <Link href="/#about" className="font-headline hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
               About
             </Link>
           </nav>

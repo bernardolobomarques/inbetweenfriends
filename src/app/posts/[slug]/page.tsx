@@ -58,8 +58,8 @@ export default async function PostPage({ params }: PostPageProps) {
       <main className="flex-grow pt-24">
         <article className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
           <header className="mb-12 text-center">
-            <h1 className="text-4xl md:text-6xl font-headline font-bold text-foreground mb-4">{post.title}</h1>
-            <div className="flex items-center justify-center space-x-4 text-muted-foreground">
+            <h1 className="text-4xl md:text-6xl font-body font-bold text-foreground mb-4">{post.title}</h1>
+            <div className="flex items-center justify-center space-x-4 text-muted-foreground font-headline">
               <div className="flex items-center space-x-2">
                 <Image src={post.authorImage} alt={post.authorName} width={32} height={32} className="rounded-full" data-ai-hint="person portrait" />
                 <span>{post.authorName}</span>
@@ -81,14 +81,14 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
 
           <div
-            className="post-content font-body text-foreground/90 text-lg"
+            className="post-content font-headline text-foreground/90 text-lg"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </article>
       </main>
       <footer className="bg-secondary py-8 mt-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Amigas Blog. All Rights Reserved.</p>
+          <p className="font-headline">&copy; {new Date().getFullYear()} Amigas Blog. All Rights Reserved.</p>
         </div>
       </footer>
     </div>

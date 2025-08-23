@@ -26,13 +26,13 @@ export function PostCard({ post, className }: PostCardProps) {
                 </div>
             </CardHeader>
             <CardContent className="p-6 flex-grow">
-                <CardTitle className="font-headline text-2xl mb-2 text-foreground group-hover:text-primary transition-colors">
+                <CardTitle className="font-body text-2xl mb-2 text-foreground group-hover:text-primary transition-colors">
                     {post.title}
                 </CardTitle>
-                <p className="text-muted-foreground font-body leading-relaxed">{post.excerpt}</p>
+                <p className="text-muted-foreground font-headline leading-relaxed">{post.excerpt}</p>
             </CardContent>
             <CardFooter className="p-6 pt-0 flex justify-between items-center">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground font-headline">
                     <Image src={post.authorImage} alt={post.authorName} width={24} height={24} className="rounded-full" data-ai-hint="person portrait" />
                     <span>{post.publishDate}</span>
                 </div>
