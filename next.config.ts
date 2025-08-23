@@ -18,6 +18,21 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    // This is a workaround for a Next.js bug.
+    // See: https://github.com/vercel/next.js/issues/64421
+    config.module.rules.forEach((rule) => {
+      if (rule.oneOf) {
+        rule.oneOf.forEach((oneOfRule) => {
+          if (oneOfRule.use && oneOfRule.use.loader === 'next-swc-loader') {
+            delete oneOfRule.issuer;
+          }
+        });
+      }
+    });
+
+    return config;
+  }
 };
 
 export default nextConfig;

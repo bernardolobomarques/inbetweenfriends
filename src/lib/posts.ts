@@ -11,6 +11,7 @@ const posts: Post[] = [
     authorName: 'Elena Rodriguez',
     authorImage: 'https://placehold.co/100x100/f5f1ed/4d4545',
     publishDate: 'October 26, 2023',
+    date: '2023-10-26T10:00:00Z'
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const posts: Post[] = [
     authorName: 'Sofia Chen',
     authorImage: 'https://placehold.co/100x100/f5f1ed/4d4545',
     publishDate: 'October 22, 2023',
+    date: '2023-10-22T10:00:00Z'
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const posts: Post[] = [
     authorName: 'Isabella Garcia',
     authorImage: 'https://placehold.co/100x100/f5f1ed/4d4545',
     publishDate: 'October 18, 2023',
+    date: '2023-10-18T10:00:00Z'
   },
     {
     id: 4,
@@ -44,13 +47,15 @@ const posts: Post[] = [
     authorName: 'Chloe Dubois',
     authorImage: 'https://placehold.co/100x100/f5f1ed/4d4545',
     publishDate: 'October 15, 2023',
+    date: '2023-10-15T10:00:00Z'
   },
 ];
 
 export async function getPosts(): Promise<Post[]> {
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 200));
-  return posts;
+  const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return sortedPosts;
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {

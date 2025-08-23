@@ -58,14 +58,14 @@ export default async function PostPage({ params }: PostPageProps) {
       <main className="flex-grow pt-24">
         <article className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
           <header className="mb-12 text-center">
-            <h1 className="text-4xl md:text-6xl font-body text-foreground mb-4">{post.title}</h1>
+            <h1 className="text-4xl md:text-6xl font-body font-normal text-foreground mb-4">{post.title}</h1>
             <div className="flex items-center justify-center space-x-4 text-muted-foreground font-headline">
               <div className="flex items-center space-x-2">
                 <Image src={post.authorImage} alt={post.authorName} width={32} height={32} className="rounded-full" data-ai-hint="person portrait" />
                 <span>{post.authorName}</span>
               </div>
               <span>&middot;</span>
-              <time dateTime={post.publishDate}>{post.publishDate}</time>
+              <time dateTime={post.date}>{post.publishDate}</time>
             </div>
           </header>
 
