@@ -1,34 +1,17 @@
+
 "use client";
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from "next/link";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { addPost } from '@/lib/posts';
-
-const postFormSchema = z.object({
-  title: z.string().min(1, "Title is required."),
-  excerpt: z.string().min(1, "Excerpt is required."),
-  content: z.string().min(1, "Content is required."),
-  category: z.string().min(1, "Category is required."),
-  authorName: z.string().min(1, "Author Name is required."),
-});
 
 export default function AdminPage() {
   const router = useRouter();
-  const { toast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -42,72 +25,6 @@ export default function AdminPage() {
     };
     checkAuth();
   }, [router]);
-
-  const form = useForm<z.infer<typeof postFormSchema>>({
-    resolver: zodResolver(postFormSchema),
-    defaultValues: {
-      title: "",
-      excerpt: "",
-      content: "",
-      category: "",
-      authorName: "Amigas Blog",
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof postFormSchema>) {
-    setIsSubmitting(true);
-    toast({ title: "Creating post..." });
-
-    // This simulates calling your n8n webhook which would then add the post to your data source.
-    const webhookUrl = "https://your-n8n-webhook-url.com/placeholder"; // <-- REPLACE WITH YOUR N8N WEBHOOK
-
-    try {
-      // Step 1: Add the post to our in-memory cache for this demo.
-      // In your real app, your n8n webhook would handle this.
-      const newPostData = {
-        ...values,
-        slug: values.title.toLowerCase().replace(/\s+/g, '-'),
-        featuredImage: 'https://placehold.co/800x600.png',
-        authorImage: 'https://placehold.co/100x100.png',
-      };
-      await addPost(newPostData);
-
-      console.log("Simulating webhook call to:", webhookUrl);
-      console.log("Post data:", newPostData);
-      
-      // Step 2: Call the revalidate API route to update the static pages
-      const revalidateResponse = await fetch(`/api/revalidate?secret=AMIGAS_SECRET_REVALIDATE_TOKEN`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({}), // Sending empty body
-      });
-      
-      if (!revalidateResponse.ok) {
-          const errorData = await revalidateResponse.json();
-          throw new Error(errorData.message || 'Failed to revalidate content.');
-      }
-
-      toast({
-        title: "Success!",
-        description: "Post created and site has been updated.",
-      });
-      form.reset();
-
-    } catch (error) {
-       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-       console.error("Error creating post:", errorMessage);
-       toast({
-        variant: "destructive",
-        title: "Error",
-        description: `Failed to create post: ${errorMessage}`,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
 
   const handleLogout = () => {
     sessionStorage.removeItem('isAdminAuthenticated');
@@ -166,53 +83,20 @@ export default function AdminPage() {
         <main className="container mx-auto p-4 sm:p-6 lg:p-8">
              <Card className="max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle className="text-2xl font-body">Create New Post</CardTitle>
-                    <CardDescription>Fill out the form below to publish a new blog post.</CardDescription>
+                    <CardTitle className="text-2xl font-body">Content Management</CardTitle>
+                    <CardDescription>How to add, edit, or delete posts.</CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                            <FormField control={form.control} name="title" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Title</FormLabel>
-                                    <FormControl><Input placeholder="Your amazing post title" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}/>
-                             <FormField control={form.control} name="category" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Category</FormLabel>
-                                    <FormControl><Input placeholder="e.g., Mindfulness, Creativity" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}/>
-                            <FormField control={form.control} name="excerpt" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Excerpt</FormLabel>
-                                    <FormControl><Textarea placeholder="A short summary of your post" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}/>
-                            <FormField control={form.control} name="content" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Full Content</FormLabel>
-                                    <FormControl><Textarea placeholder="Write your full post content here. You can use HTML for formatting." {...field} rows={10} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}/>
-                            <FormField control={form.control} name="authorName" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Author Name</FormLabel>
-                                    <FormControl><Input {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}/>
-
-                            <Button type="submit" size="lg" disabled={isSubmitting}>
-                                {isSubmitting ? "Creating..." : "Create Post"}
-                            </Button>
-                        </form>
-                    </Form>
+                <CardContent className="space-y-4 text-card-foreground">
+                    <p>
+                        With this new static architecture, managing content is done directly in the source code.
+                    </p>
+                    <p>
+                        To add, edit, or delete a post, you will need to modify the array of posts located in the file:
+                        <code className="bg-muted text-muted-foreground font-code p-1 rounded-md mx-1">src/lib/posts.ts</code>.
+                    </p>
+                    <p>
+                        Any changes committed to your Git repository will automatically trigger a new deployment on Vercel, updating your live site with the new content. This approach is fast, secure, and ideal for static sites.
+                    </p>
                 </CardContent>
             </Card>
         </main>
