@@ -1,9 +1,11 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Post } from '@/types';
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface PostCardProps {
   post: Post;
@@ -26,6 +28,7 @@ export function PostCard({ post, className }: PostCardProps) {
                 </div>
             </CardHeader>
             <CardContent className="p-6 flex-grow">
+                <Badge variant="secondary" className="mb-2">{post.category}</Badge>
                 <CardTitle className="font-body text-2xl mb-2 text-foreground group-hover:text-primary transition-colors">
                     {post.title}
                 </CardTitle>

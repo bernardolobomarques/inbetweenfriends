@@ -1,3 +1,4 @@
+
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getPosts, getPostBySlug } from '@/lib/posts';
@@ -58,6 +59,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <main className="flex-grow pt-24">
         <article className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
           <header className="mb-12 text-center">
+            <p className="text-primary font-headline font-semibold mb-2">{post.category}</p>
             <h1 className="text-4xl md:text-6xl font-body font-normal text-foreground mb-4">{post.title}</h1>
             <div className="flex items-center justify-center space-x-4 text-muted-foreground font-headline">
               <div className="flex items-center space-x-2">
