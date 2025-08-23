@@ -75,7 +75,7 @@ export function Header() {
           className="fixed inset-0 bg-background z-40 flex flex-col items-center justify-center md:hidden animate-in fade-in duration-300"
           onClick={() => setIsMenuOpen(false)}
         >
-          <nav className="flex flex-col items-center space-y-8 text-2xl">
+          <nav className="flex flex-col items-center space-y-8 text-4xl font-bold">
             <Link href="/" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
               Home
             </Link>
