@@ -76,12 +76,31 @@ export default async function Home() {
           </div>
         </section>
 
-        <section id="about" className="py-20 bg-secondary text-secondary-foreground">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-body mb-4">About the Blog</h2>
-            <p className="max-w-2xl mx-auto text-lg mb-8 font-headline">
-              Hi, I'm Carol! I created this space to share some of the ideas and thoughts from my journey as an international law student in Barcelona, though my heart is still in Rio de Janeiro. This blog is an invitation to chat about life, friendship, and the little things that connect us all. Make yourself at home!
-            </p>
+        <section id="about" className="py-20 bg-secondary/50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="relative aspect-square w-full max-w-md mx-auto md:mx-0 rounded-lg overflow-hidden shadow-2xl">
+                <Image
+                  src="https://placehold.co/600x600.png"
+                  alt="Carolina Bianchi"
+                  fill
+                  className="object-cover"
+                  data-ai-hint="woman portrait"
+                />
+              </div>
+              <div className="text-center md:text-left">
+                <h2 className="text-4xl font-body mb-4 text-secondary-foreground">A Little About Me</h2>
+                <p className="text-lg text-secondary-foreground/90 font-headline mb-4">
+                  Hi, I'm Carol! I created this space to share some of the ideas and thoughts from my journey as an international law student in Barcelona, though my heart is still in Rio de Janeiro. 
+                </p>
+                <p className="text-lg text-secondary-foreground/90 font-headline mb-8">
+                  This blog is an invitation to chat about life, friendship, and the little things that connect us all. It's a place for quiet reflection and joyful discovery. So grab a cup of coffee, make yourself at home, and let's explore together!
+                </p>
+                 <Button asChild size="lg" variant="secondary" className="bg-white/20 hover:bg-white/30 text-white">
+                    <Link href="/posts">Start Reading</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
 
