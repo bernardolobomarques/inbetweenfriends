@@ -53,7 +53,7 @@ const posts: Post[] = [
     title: 'The Joy of Slow Travel: Connecting Deeper',
     excerpt: 'Move beyond the checklist and embrace a more meaningful way to see the world. Slow travel is about immersion, connection, and creating lasting memories.',
     content: `<p>In our fast-paced world, vacations can sometimes feel like a race to see as much as possible. Slow travel offers a refreshing alternative. It’s a mindset that encourages you to connect with a place on a deeper level, rather than just skimming the surface. Instead of hopping between cities every two days, you might spend a week or more in a single location, getting to know the local rhythm of life.</p><h2>The Beauty of Spontaneity</h2><p>This approach allows for spontaneous discoveries that are often the most memorable parts of a trip. You might stumble upon a hidden cafe, strike up a conversation with a local artisan, or find a favorite spot in a neighborhood park. By staying longer, you can support local businesses, learn a few phrases in the local language, and gain a more authentic understanding of the culture.</p><h3>Sustainable and Soulful</h3><p>Slow travel is also more sustainable, both for the environment and for your own well-being. It reduces your carbon footprint and eliminates the stress of constant packing and transit. You return home not exhausted, but genuinely refreshed and with a richer collection of stories and experiences. So next time you plan a trip, consider slowing down. The world has so much to offer when you take the time to truly see it.</p>`,
-    featuredImage: 'placeholder-1',
+    featuredImage: 'cabana',
     authorName: 'Carolina Bianchi',
     authorImage: 'https://placehold.co/100x100.png',
     authorBio: authorBio,
