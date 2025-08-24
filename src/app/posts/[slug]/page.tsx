@@ -9,7 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Twitter, Facebook, Linkedin } from 'lucide-react';
 import Link from 'next/link';
-import { PostCard } from '@/components/post-card';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
@@ -110,7 +109,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 <p className="font-headline text-muted-foreground">{post.authorBio}</p>
             </div>
           </section>
-
+          
           {relatedPosts.length > 0 && (
             <section className="mb-12">
                 <h2 className="text-3xl font-body text-center mb-8">You might also like...</h2>
