@@ -63,15 +63,24 @@ export default function PostsPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-        <section className="pt-32 pb-20 text-center bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
-              All Posts
-            </h1>
-            <p className="max-w-3xl mx-auto text-xl text-muted-foreground mb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200 font-headline">
-              Browse through our collection of thoughtful conversations on mindfulness, friendship, and creativity.
-            </p>
-          </div>
+        <section 
+            className="relative pt-32 pb-20 text-center bg-background text-white"
+            style={{
+                backgroundImage: `url(/all-posts-hero.png)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+            }}
+        >
+            <div className="absolute inset-0 bg-black/60 z-10" />
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+                <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                All Posts
+                </h1>
+                <p className="max-w-3xl mx-auto text-xl text-white/90 mb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200 font-headline">
+                Browse through our collection of thoughtful conversations on mindfulness, friendship, and creativity.
+                </p>
+            </div>
         </section>
 
         <section className="py-12 bg-card">
