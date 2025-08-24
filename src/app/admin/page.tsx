@@ -77,7 +77,7 @@ export default function AdminPage() {
       });
       form.reset();
     } catch (error) {
-      console.error("Falha ao acionar o fluxo de trabalho n8n:", error);
+      console.error("Falha ao acionar o fluxo de trabalho n8n:", { error, values });
       toast({
         variant: "destructive",
         title: "Falha no Envio",
