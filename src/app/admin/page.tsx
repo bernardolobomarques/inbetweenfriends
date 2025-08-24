@@ -68,7 +68,6 @@ export default function AdminPage() {
       });
 
       if (!response.ok) {
-        // Se a resposta não for bem-sucedida, lançamos um erro para cair no bloco catch
         throw new Error(`A resposta da rede não foi 'ok'. Status: ${response.status}`);
       }
       
@@ -145,18 +144,22 @@ export default function AdminPage() {
             <div className="grid gap-8 max-w-4xl mx-auto">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-2xl font-body">Gerenciamento de Conteúdo</CardTitle>
-                        <CardDescription>Como adicionar, editar ou excluir posts.</CardDescription>
+                        <CardTitle className="text-2xl font-body">Como Gerenciar o Conteúdo</CardTitle>
+                        <CardDescription>Existem duas maneiras de criar, editar ou excluir posts no blog.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4 text-card-foreground">
-                        <p>
-                            Para adicionar, editar ou excluir um post manualmente, você pode modificar o array de posts localizado no arquivo:
-                            <code className="bg-muted text-muted-foreground font-code p-1 rounded-md mx-1">src/lib/posts.ts</code>.
-                             Qualquer alteração enviada ao seu repositório Git acionará automaticamente uma nova implantação, atualizando seu site.
-                        </p>
-                         <p>
-                            Alternativamente, use o formulário abaixo para adicionar um novo post. Isso enviará os dados para um fluxo de trabalho n8n pré-configurado que atualizará automaticamente o arquivo de posts e acionará uma nova implantação.
-                        </p>
+                       <div>
+                          <h3 className="font-semibold mb-2">Método 1: Formulário (Recomendado)</h3>
+                          <p>
+                              Use o formulário "Criar Novo Post" abaixo. Ao enviá-lo, os dados são mandados para um fluxo de trabalho no n8n, que automaticamente atualiza os arquivos do seu site no GitHub e dispara uma nova implantação. É a forma mais simples e segura.
+                          </p>
+                       </div>
+                       <div>
+                          <h3 className="font-semibold mb-2">Método 2: Manualmente (Avançado)</h3>
+                          <p>
+                              Você pode editar diretamente o array de posts no arquivo <code className="bg-muted text-muted-foreground font-code p-1 rounded-md mx-1">src/lib/posts.ts</code>. Qualquer alteração enviada ao seu repositório Git também acionará uma nova implantação. Ideal para edições em massa ou ajustes finos.
+                          </p>
+                       </div>
                     </CardContent>
                 </Card>
 
@@ -235,5 +238,3 @@ export default function AdminPage() {
     </div>
   );
 }
-
-    
