@@ -90,7 +90,7 @@ export default async function Home() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative aspect-square w-full max-w-md mx-auto md:mx-0 rounded-lg overflow-hidden shadow-2xl">
                 <Image
-                  src="https://placehold.co/600x600.png"
+                  src="/carolinda.jpg"
                   alt="Carolina Bianchi"
                   fill
                   className="object-cover"
