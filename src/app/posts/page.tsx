@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Post } from '@/types';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -64,16 +65,18 @@ export default function PostsPage() {
       <Header />
       <main className="flex-grow">
         <section 
-            className="relative pt-32 pb-20 text-center bg-background text-white"
-            style={{
-                backgroundImage: `url(/all-posts-hero.png)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-            }}
+            className="relative w-full h-[50vh] md:h-[70vh] text-center text-white"
         >
+            <Image
+                src="/all-posts-hero.png"
+                alt="All Posts Hero Background"
+                layout="fill"
+                objectFit="cover"
+                className="z-0"
+                priority
+            />
             <div className="absolute inset-0 bg-black/60 z-10" />
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 flex flex-col items-center justify-center h-full">
                 <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
                 All Posts
                 </h1>
