@@ -78,9 +78,9 @@ export default async function Home() {
 
         <section id="about" className="py-20 bg-secondary text-secondary-foreground">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-body mb-4">About the Author</h2>
+            <h2 className="text-4xl font-body mb-4">Sobre o Blog</h2>
             <p className="max-w-2xl mx-auto text-lg mb-8 font-headline">
-              Hi, we're a collective of voices sharing stories and insights to inspire a more connected and creative life. We believe in the power of friendship, the beauty of the present moment, and the creative spirit that lives in all of us. Join our community!
+              Oi, eu sou a Carol. Criei este espaço para compartilhar um pouco das ideias e pensamentos que me acompanham na jornada como estudante de direito em Barcelona, sempre com um pezinho no Rio de Janeiro. Este blog é um convite para conversas sobre a vida, amizades e as pequenas coisas que nos conectam. Sinta-se em casa!
             </p>
           </div>
         </section>
