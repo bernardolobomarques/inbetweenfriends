@@ -14,6 +14,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { availableImages } from '@/lib/images';
 
 const formSchema = z.object({
   title: z.string().min(1, 'Title is required.'),
@@ -21,6 +23,7 @@ const formSchema = z.object({
   content: z.string().min(1, 'Content is required.'),
   category: z.string().min(1, 'Category is required.'),
   authorName: z.string().min(1, 'Author name is required.'),
+  featuredImage: z.string().min(1, 'Please select an image.'),
 });
 
 export default function AdminPage() {
@@ -49,7 +52,8 @@ export default function AdminPage() {
       excerpt: '',
       content: '',
       category: '',
-      authorName: 'Admin',
+      authorName: 'Carolina Bianchi',
+      featuredImage: '',
     },
   });
 
@@ -63,7 +67,7 @@ export default function AdminPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
-        mode: 'no-cors' // This should help with the CORS issue
+        mode: 'no-cors'
       });
       
       toast({
@@ -180,6 +184,26 @@ export default function AdminPage() {
                                     <FormItem>
                                         <FormLabel>Content</FormLabel>
                                         <FormControl><Textarea placeholder="The full content of the post (supports HTML)..." {...field} rows={10} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}/>
+                                 <FormField control={form.control} name="featuredImage" render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Featured Image</FormLabel>
+                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select an image" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {availableImages.map(image => (
+                                                    <SelectItem key={image.key} value={image.key}>
+                                                        {image.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                         <FormMessage />
                                     </FormItem>
                                 )}/>

@@ -12,3 +12,9 @@ export interface Post {
   date: string;
   category: string;
 }
+
+export interface BlogImage {
+  key: string;
+  name: string;
+  path: string;
+}
