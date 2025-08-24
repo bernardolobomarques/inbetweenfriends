@@ -62,7 +62,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const allPosts = await getPosts();
   const relatedPosts = allPosts
-    .filter(p => p.category === post.category && p.slug !== post.slug)
+    .filter(p => p.slug !== post.slug)
     .slice(0, 2);
 
 
