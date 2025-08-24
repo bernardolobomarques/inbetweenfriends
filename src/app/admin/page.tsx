@@ -61,12 +61,16 @@ export default function AdminPage() {
     const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/novo-post"; 
 
     try {
-      await fetch(webhookUrl, {
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
-        mode: 'no-cors'
       });
+
+      if (!response.ok) {
+        // Se a resposta não for bem-sucedida, lançamos um erro para cair no bloco catch
+        throw new Error(`A resposta da rede não foi 'ok'. Status: ${response.status}`);
+      }
       
       toast({
         title: "Post Enviado!",
@@ -231,3 +235,5 @@ export default function AdminPage() {
     </div>
   );
 }
+
+    
