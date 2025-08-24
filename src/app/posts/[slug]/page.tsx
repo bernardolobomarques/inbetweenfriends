@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
+import { Footer } from '@/components/footer';
 
 export async function generateStaticParams() {
   const posts: Post[] = await getPosts();
@@ -175,11 +176,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </article>
 
       </main>
-      <footer className="bg-background border-t py-8 relative z-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p className="font-headline">&copy; {new Date().getFullYear()} Entre Amigas. Todos os Direitos Reservados.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

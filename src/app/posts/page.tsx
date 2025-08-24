@@ -16,6 +16,7 @@ import {
 import { Post } from '@/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
+import { Footer } from '@/components/footer';
 
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -148,11 +149,7 @@ export default function PostsPage() {
         </section>
       </main>
 
-      <footer className="bg-background border-t py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p className="font-headline">&copy; {new Date().getFullYear()} Entre Amigas. Todos os Direitos Reservados.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

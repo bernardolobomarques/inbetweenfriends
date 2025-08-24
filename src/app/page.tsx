@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { ArrowRight } from 'lucide-react';
+import { Footer } from '@/components/footer';
 
 export default async function Home() {
   const posts = await getPosts();
@@ -127,11 +128,7 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer className="bg-background border-t py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p className="font-headline">&copy; {new Date().getFullYear()} Entre Amigas. Todos os Direitos Reservados.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
