@@ -4,17 +4,14 @@ import { PostCard } from '@/components/post-card';
 import { getPosts } from '@/lib/posts';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import { ArrowRight } from 'lucide-react';
 
 export default async function Home() {
   const posts = await getPosts();
-  const latestPosts = posts.slice(0, 5);
+  const featuredPost = posts[0];
+  const recentPosts = posts.slice(1, 7);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -31,28 +28,46 @@ export default async function Home() {
             </div>
         </section>
 
-        <section className="py-20 bg-card">
+        {featuredPost && (
+          <section className="py-20 bg-card">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+               <h2 className="text-4xl font-body text-center mb-12">Featured Post</h2>
+               <Link href={`/posts/${featuredPost.slug}`} className="group block">
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                         <Image
+                            src={featuredPost.featuredImage}
+                            alt={featuredPost.title}
+                            fill
+                            className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                            priority
+                            data-ai-hint={`${featuredPost.slug.split('-').slice(0, 2).join(' ')}`}
+                         />
+                    </div>
+                    <div>
+                        <p className="text-primary font-headline font-semibold mb-2">{featuredPost.category}</p>
+                        <h3 className="text-4xl font-body mb-4 text-foreground group-hover:text-primary transition-colors">{featuredPost.title}</h3>
+                        <p className="text-lg text-muted-foreground font-headline mb-6">{featuredPost.excerpt}</p>
+                         <div className="flex items-center text-sm font-semibold text-primary">
+                            Read More <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                    </div>
+                </div>
+               </Link>
+            </div>
+          </section>
+        )}
+
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-4xl font-body text-center mb-12">Latest Musings</h2>
-            <Carousel
-              opts={{
-                align: 'start',
-                loop: true,
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
-                {latestPosts.map((post) => (
-                  <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-1 h-full">
-                       <PostCard post={post} className="h-full"/>
-                    </div>
-                  </CarouselItem>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {recentPosts.map((post, index) => (
+                   <div key={post.id} className="animate-in fade-in slide-in-from-bottom-5" style={{ animationDelay: `${index * 100}ms`}}>
+                    <PostCard post={post} className="h-full"/>
+                  </div>
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden sm:flex" />
-              <CarouselNext className="hidden sm:flex" />
-            </Carousel>
+              </div>
             <div className="text-center mt-12">
               <Button asChild size="lg">
                 <Link href="/posts">View All Posts</Link>
@@ -68,6 +83,19 @@ export default async function Home() {
               Hi, we're a collective of voices sharing stories and insights to inspire a more connected and creative life. We believe in the power of friendship, the beauty of the present moment, and the creative spirit that lives in all of us. Join our community!
             </p>
           </div>
+        </section>
+
+        <section className="py-20 bg-card">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                 <h2 className="text-4xl font-body mb-4">Stay Connected</h2>
+                 <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-8 font-headline">
+                    Subscribe to our newsletter to receive the latest posts and updates directly in your inbox.
+                 </p>
+                 <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <Input type="email" placeholder="Enter your email" className="flex-grow text-base" />
+                    <Button type="submit" size="lg">Subscribe</Button>
+                 </form>
+            </div>
         </section>
       </main>
 
