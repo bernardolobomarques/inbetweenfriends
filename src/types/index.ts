@@ -7,6 +7,7 @@ export interface Post {
   featuredImage: string;
   authorName: string;
   authorImage: string;
+  authorBio: string;
   publishDate: string;
   date: string;
   category: string;

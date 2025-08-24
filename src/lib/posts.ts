@@ -13,6 +13,7 @@ const posts: Post[] = [
     featuredImage: 'https://placehold.co/800x600.png',
     authorName: 'Elena Rodriguez',
     authorImage: 'https://placehold.co/100x100.png',
+    authorBio: 'Elena is a mindfulness coach and writer dedicated to helping people find balance in their busy lives.',
     publishDate: 'October 26, 2023',
     date: '2023-10-26T10:00:00Z',
     category: 'Mindfulness'
@@ -26,6 +27,7 @@ const posts: Post[] = [
     featuredImage: 'https://placehold.co/800x600.png',
     authorName: 'Sofia Chen',
     authorImage: 'https://placehold.co/100x100.png',
+    authorBio: 'Sofia is a sociologist and author who writes about human connection in the digital age.',
     publishDate: 'October 22, 2023',
     date: '2023-10-22T10:00:00Z',
     category: 'Friendship'
@@ -39,6 +41,7 @@ const posts: Post[] = [
     featuredImage: 'https://placehold.co/800x600.png',
     authorName: 'Isabella Garcia',
     authorImage: 'https://placehold.co/100x100.png',
+    authorBio: 'Isabella is an artist and creative mentor who believes creativity is a key to a joyful life.',
     publishDate: 'October 18, 2023',
     date: '2023-10-18T10:00:00Z',
     category: 'Creativity'
@@ -52,6 +55,7 @@ const posts: Post[] = [
     featuredImage: 'https://placehold.co/800x600.png',
     authorName: 'Chloe Dubois',
     authorImage: 'https://placehold.co/100x100.png',
+    authorBio: 'Chloe is a travel writer and photographer who champions slow, sustainable, and immersive journeys.',
     publishDate: 'October 15, 2023',
     date: '2023-10-15T10:00:00Z',
     category: 'Travel'
