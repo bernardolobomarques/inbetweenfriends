@@ -33,16 +33,14 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = () => {
-      const isAdmin = sessionStorage.getItem('isAdminAuthenticated') === 'true';
-      if (!isAdmin) {
-        router.replace('/admin/login');
-      } else {
-        setIsAuthenticated(true);
-      }
-      setLoading(false);
-    };
-    checkAuth();
+    // This check must run only on the client side.
+    const isAdmin = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+    if (!isAdmin) {
+      router.replace('/admin/login');
+    } else {
+      setIsAuthenticated(true);
+    }
+    setLoading(false);
   }, [router]);
 
   const form = useForm<z.infer<typeof formSchema>>({
