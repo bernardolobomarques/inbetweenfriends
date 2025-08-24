@@ -1,7 +1,7 @@
 
 import type { Post } from '@/types';
 
-const authorBio = "Carolina Bianchi é uma estudante de direito internacional em Barcelona, originária do Rio de Janeiro. Fluente em quatro idiomas, ela tem experiência com debates no estilo da ONU e adora compartilhar suas reflexões sobre a vida, amizades e o mundo.";
+const authorBio = "Carolina Bianchi is an international law student in Barcelona, originally from Rio de Janeiro. Fluent in four languages, she has experience with UN-style debates and loves to share her reflections on life, friendships, and the world.";
 
 const posts: Post[] = [
     {

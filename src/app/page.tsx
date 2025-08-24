@@ -78,9 +78,9 @@ export default async function Home() {
 
         <section id="about" className="py-20 bg-secondary text-secondary-foreground">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-body mb-4">Sobre o Blog</h2>
+            <h2 className="text-4xl font-body mb-4">About the Blog</h2>
             <p className="max-w-2xl mx-auto text-lg mb-8 font-headline">
-              Oi, eu sou a Carol. Criei este espaço para compartilhar um pouco das ideias e pensamentos que me acompanham na jornada como estudante de direito em Barcelona, sempre com um pezinho no Rio de Janeiro. Este blog é um convite para conversas sobre a vida, amizades e as pequenas coisas que nos conectam. Sinta-se em casa!
+              Hi, I'm Carol! I created this space to share some of the ideas and thoughts from my journey as an international law student in Barcelona, though my heart is still in Rio de Janeiro. This blog is an invitation to chat about life, friendship, and the little things that connect us all. Make yourself at home!
             </p>
           </div>
         </section>
