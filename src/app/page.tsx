@@ -17,24 +17,24 @@ export default async function Home() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-        <section 
-            className="relative pt-32 pb-20 text-center text-white"
-            style={{
-                backgroundImage: `url(/hero-home-1.png)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-            }}
-        >
-            <div className="absolute inset-0 bg-black/60 z-10" />
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-                <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
-                Welcome to Amigas Blog
-                </h1>
-                <p className="max-w-3xl mx-auto text-xl text-white/90 mb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200 font-headline">
-                A cozy corner of the internet for thoughtful conversations on mindfulness, friendship, and creativity.
-                </p>
-            </div>
+        <section className="relative w-full h-[50vh] md:h-[70vh] text-center text-white">
+          <Image
+            src="/hero-home-1.png"
+            alt="Hero background"
+            layout="fill"
+            objectFit="cover"
+            className="z-0"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/60 z-10" />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 flex flex-col items-center justify-center h-full">
+            <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
+              Welcome to Amigas Blog
+            </h1>
+            <p className="max-w-3xl mx-auto text-xl text-white/90 mb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200 font-headline">
+              A cozy corner of the internet for thoughtful conversations on mindfulness, friendship, and creativity.
+            </p>
+          </div>
         </section>
 
         {featuredPost && (
