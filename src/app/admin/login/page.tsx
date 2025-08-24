@@ -18,8 +18,8 @@ import { useRouter } from 'next/navigation';
 import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-  username: z.string().min(1, { message: "Username is required." }),
-  password: z.string().min(1, { message: "Password is required." }),
+  username: z.string().min(1, { message: "O nome de usuário é obrigatório." }),
+  password: z.string().min(1, { message: "A senha é obrigatória." }),
 });
 
 export default function LoginPage() {
@@ -37,15 +37,15 @@ export default function LoginPage() {
     if (values.username === "admin" && values.password === "123") {
        sessionStorage.setItem('isAdminAuthenticated', 'true');
        toast({
-        title: "Login Successful",
-        description: "Redirecting to the admin panel...",
+        title: "Login bem-sucedido",
+        description: "Redirecionando para o painel de administração...",
       });
       router.push('/admin');
     } else {
       toast({
         variant: "destructive",
-        title: "Login Failed",
-        description: "Invalid username or password.",
+        title: "Falha no Login",
+        description: "Nome de usuário ou senha inválidos.",
       });
     }
   }
@@ -54,8 +54,8 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="w-full max-w-md mx-4">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-body">Admin Login</CardTitle>
-          <CardDescription>Enter your credentials to access the admin panel.</CardDescription>
+          <CardTitle className="text-3xl font-body">Login do Admin</CardTitle>
+          <CardDescription>Digite suas credenciais para acessar o painel de administração.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -65,7 +65,7 @@ export default function LoginPage() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Usuário</FormLabel>
                     <FormControl>
                       <Input placeholder="admin" {...field} />
                     </FormControl>
@@ -78,7 +78,7 @@ export default function LoginPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Senha</FormLabel>
                     <FormControl>
                       <Input type="password" placeholder="••••••••" {...field} />
                     </FormControl>
@@ -86,7 +86,7 @@ export default function LoginPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" size="lg">Login</Button>
+              <Button type="submit" className="w-full" size="lg">Entrar</Button>
             </form>
           </Form>
         </CardContent>

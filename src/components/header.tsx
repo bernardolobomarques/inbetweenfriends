@@ -54,14 +54,14 @@ export function Header() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="text-2xl font-body font-bold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-              Amigas Blog
+              Entre Amigas
             </Link>
             <nav className="hidden md:flex items-center space-x-8 text-lg">
               <Link href="/" className="font-headline hover:text-primary transition-colors duration-300">
-                Home
+                Início
               </Link>
               <Link href="/posts" className="font-headline hover:text-primary transition-colors duration-300">
-                All Posts
+                Todos os Posts
               </Link>
             </nav>
             <button className="md:hidden z-50" onClick={toggleMenu} aria-label="Toggle menu">
@@ -77,10 +77,10 @@ export function Header() {
         >
           <nav className="flex flex-col items-center space-y-8 text-4xl font-bold">
             <Link href="/" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
-              Home
+              Início
             </Link>
             <Link href="/posts" className="font-body hover:text-primary transition-colors duration-300" onClick={toggleMenu}>
-              All Posts
+              Todos os Posts
             </Link>
           </nav>
         </div>

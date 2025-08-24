@@ -18,12 +18,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { availableImages } from '@/lib/images';
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Title is required.'),
-  excerpt: z.string().min(1, 'Excerpt is required.'),
-  content: z.string().min(1, 'Content is required.'),
-  category: z.string().min(1, 'Category is required.'),
-  authorName: z.string().min(1, 'Author name is required.'),
-  featuredImage: z.string().min(1, 'Please select an image.'),
+  title: z.string().min(1, 'O título é obrigatório.'),
+  excerpt: z.string().min(1, 'O resumo é obrigatório.'),
+  content: z.string().min(1, 'O conteúdo é obrigatório.'),
+  category: z.string().min(1, 'A categoria é obrigatória.'),
+  authorName: z.string().min(1, 'O nome do autor é obrigatório.'),
+  featuredImage: z.string().min(1, 'Selecione uma imagem.'),
 });
 
 export default function AdminPage() {
@@ -69,16 +69,16 @@ export default function AdminPage() {
       });
       
       toast({
-        title: "Post Submitted!",
-        description: "Your n8n workflow has been triggered. A new deployment will start shortly.",
+        title: "Post Enviado!",
+        description: "Seu fluxo de trabalho n8n foi acionado. Uma nova implantação começará em breve.",
       });
       form.reset();
     } catch (error) {
-      console.error("Failed to trigger n8n workflow:", error);
+      console.error("Falha ao acionar o fluxo de trabalho n8n:", error);
       toast({
         variant: "destructive",
-        title: "Submission Failed",
-        description: "Could not send post data to the webhook. Check the console and your n8n setup.",
+        title: "Falha no Envio",
+        description: "Não foi possível enviar os dados do post para o webhook. Verifique o console e sua configuração n8n.",
       });
     }
   }
@@ -115,7 +115,7 @@ export default function AdminPage() {
   }
 
   if (!isAuthenticated) {
-    return null; // The redirect is handled in useEffect
+    return null; // O redirecionamento é feito no useEffect
   }
 
   return (
@@ -124,14 +124,14 @@ export default function AdminPage() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <h1 className="text-2xl font-body font-bold text-foreground">
-                        Admin Panel
+                        Painel de Admin
                     </h1>
                     <div className="flex items-center gap-4">
                         <Button asChild variant="outline">
-                            <Link href="/">Back to Site</Link>
+                            <Link href="/">Voltar ao Site</Link>
                         </Button>
                          <Button onClick={handleLogout} variant="destructive">
-                            Logout
+                            Sair
                         </Button>
                     </div>
                 </div>
@@ -141,57 +141,57 @@ export default function AdminPage() {
             <div className="grid gap-8 max-w-4xl mx-auto">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-2xl font-body">Content Management</CardTitle>
-                        <CardDescription>How to add, edit, or delete posts.</CardDescription>
+                        <CardTitle className="text-2xl font-body">Gerenciamento de Conteúdo</CardTitle>
+                        <CardDescription>Como adicionar, editar ou excluir posts.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4 text-card-foreground">
                         <p>
-                            To manually add, edit, or delete a post, you can modify the array of posts located in the file:
+                            Para adicionar, editar ou excluir um post manualmente, você pode modificar o array de posts localizado no arquivo:
                             <code className="bg-muted text-muted-foreground font-code p-1 rounded-md mx-1">src/lib/posts.ts</code>.
-                             Any changes committed to your Git repository will automatically trigger a new deployment, updating your live site.
+                             Qualquer alteração enviada ao seu repositório Git acionará automaticamente uma nova implantação, atualizando seu site.
                         </p>
                          <p>
-                            Alternatively, use the form below to add a new post. This will send the data to a pre-configured n8n workflow that will automatically update the posts file and trigger a new deployment.
+                            Alternativamente, use o formulário abaixo para adicionar um novo post. Isso enviará os dados para um fluxo de trabalho n8n pré-configurado que atualizará automaticamente o arquivo de posts e acionará uma nova implantação.
                         </p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-2xl font-body">Create New Post</CardTitle>
-                        <CardDescription>Fill out the form below to add a new blog post.</CardDescription>
+                        <CardTitle className="text-2xl font-body">Criar Novo Post</CardTitle>
+                        <CardDescription>Preencha o formulário abaixo para adicionar um novo post no blog.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                                 <FormField control={form.control} name="title" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Title</FormLabel>
-                                        <FormControl><Input placeholder="Your Post Title" {...field} /></FormControl>
+                                        <FormLabel>Título</FormLabel>
+                                        <FormControl><Input placeholder="Título do seu Post" {...field} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}/>
                                 <FormField control={form.control} name="excerpt" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Excerpt</FormLabel>
-                                        <FormControl><Textarea placeholder="A short summary of the post..." {...field} /></FormControl>
+                                        <FormLabel>Resumo</FormLabel>
+                                        <FormControl><Textarea placeholder="Um breve resumo do post..." {...field} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}/>
                                 <FormField control={form.control} name="content" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Content</FormLabel>
-                                        <FormControl><Textarea placeholder="The full content of the post (supports HTML)..." {...field} rows={10} /></FormControl>
+                                        <FormLabel>Conteúdo</FormLabel>
+                                        <FormControl><Textarea placeholder="O conteúdo completo do post (suporta HTML)..." {...field} rows={10} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}/>
                                  <FormField control={form.control} name="featuredImage" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Featured Image</FormLabel>
+                                        <FormLabel>Imagem de Destaque</FormLabel>
                                          <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select an image" />
+                                                    <SelectValue placeholder="Selecione uma imagem" />
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
@@ -207,20 +207,20 @@ export default function AdminPage() {
                                 )}/>
                                 <FormField control={form.control} name="category" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Category</FormLabel>
-                                        <FormControl><Input placeholder="e.g., Mindfulness" {...field} /></FormControl>
+                                        <FormLabel>Categoria</FormLabel>
+                                        <FormControl><Input placeholder="Ex: Autoconhecimento" {...field} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}/>
                                  <FormField control={form.control} name="authorName" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Author Name</FormLabel>
+                                        <FormLabel>Nome do Autor</FormLabel>
                                         <FormControl><Input {...field} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}/>
                                 <Button type="submit" size="lg" disabled={isSubmitting}>
-                                    {isSubmitting ? 'Submitting...' : 'Create Post'}
+                                    {isSubmitting ? 'Enviando...' : 'Criar Post'}
                                 </Button>
                             </form>
                         </Form>

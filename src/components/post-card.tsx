@@ -40,7 +40,7 @@ export function PostCard({ post, className }: PostCardProps) {
                     <span>{post.publishDate}</span>
                 </div>
                 <div className="flex items-center text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Read More <ArrowRight className="ml-2 h-4 w-4" />
+                    Leia Mais <ArrowRight className="ml-2 h-4 w-4" />
                 </div>
             </CardFooter>
         </Card>

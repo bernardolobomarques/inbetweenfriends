@@ -30,7 +30,7 @@ export default function PostsPage() {
         const fetchedPosts = await getPosts();
         setPosts(fetchedPosts);
       } catch (error) {
-        console.error("Failed to fetch posts:", error);
+        console.error("Falha ao buscar posts:", error);
       } finally {
         setLoading(false);
       }
@@ -78,10 +78,10 @@ export default function PostsPage() {
             <div className="absolute inset-0 bg-black/60 z-10" />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 flex flex-col items-center justify-center h-full">
                 <h1 className="text-5xl md:text-7xl font-body mb-4 animate-in fade-in slide-in-from-bottom-5 duration-700">
-                All Posts
+                Todos os Posts
                 </h1>
                 <p className="max-w-3xl mx-auto text-xl text-white/90 mb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 delay-200 font-headline">
-                Browse through our collection of thoughtful conversations on mindfulness, friendship, and creativity.
+                Navegue pela nossa coleção de conversas sobre autoconhecimento, amizade e criatividade.
                 </p>
             </div>
         </section>
@@ -91,30 +91,30 @@ export default function PostsPage() {
             <div className="flex flex-col md:flex-row gap-4 mb-12">
               <Input
                 type="text"
-                placeholder="Search by post title..."
+                placeholder="Buscar pelo título do post..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 className="max-w-sm"
               />
                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger className="w-full md:w-[180px]">
-                  <SelectValue placeholder="Filter by category" />
+                  <SelectValue placeholder="Filtrar por categoria" />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                      {category === 'all' ? 'Todas' : category.charAt(0).toUpperCase() + category.slice(1)}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <Select value={sortOrder} onValueChange={setSortOrder}>
                 <SelectTrigger className="w-full md:w-[180px]">
-                  <SelectValue placeholder="Sort by" />
+                  <SelectValue placeholder="Ordenar por" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="newest">Newest</SelectItem>
-                  <SelectItem value="oldest">Oldest</SelectItem>
+                  <SelectItem value="newest">Mais recentes</SelectItem>
+                  <SelectItem value="oldest">Mais antigos</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -141,7 +141,7 @@ export default function PostsPage() {
             )}
              {filteredAndSortedPosts.length === 0 && !loading && (
               <div className="text-center py-16">
-                <p className="text-xl text-muted-foreground">No posts found.</p>
+                <p className="text-xl text-muted-foreground">Nenhum post encontrado.</p>
               </div>
             )}
           </div>
@@ -150,7 +150,7 @@ export default function PostsPage() {
 
       <footer className="bg-background border-t py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p className="font-headline">&copy; {new Date().getFullYear()} Amigas Blog. All Rights Reserved.</p>
+          <p className="font-headline">&copy; {new Date().getFullYear()} Entre Amigas. Todos os Direitos Reservados.</p>
         </div>
       </footer>
     </div>

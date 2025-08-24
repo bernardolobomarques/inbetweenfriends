@@ -31,12 +31,12 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
   if (!post) {
     return {
-      title: 'Post Not Found',
+      title: 'Post Não Encontrado',
     };
   }
 
   return {
-    title: `${post.title} | Amigas Blog`,
+    title: `${post.title} | Entre Amigas`,
     description: post.excerpt,
     openGraph: {
         title: post.title,
@@ -105,14 +105,14 @@ export default async function PostPage({ params }: PostPageProps) {
           <section className="bg-card rounded-lg p-8 flex items-start gap-6 mb-12">
             <Image src={post.authorImage} alt={post.authorName} width={80} height={80} className="rounded-full hidden sm:block" data-ai-hint="person portrait" />
             <div>
-                <h3 className="font-body text-2xl font-semibold mb-2">About {post.authorName}</h3>
+                <h3 className="font-body text-2xl font-semibold mb-2">Sobre {post.authorName}</h3>
                 <p className="font-headline text-muted-foreground">{post.authorBio}</p>
             </div>
           </section>
           
           {relatedPosts.length > 0 && (
             <section className="mb-12">
-                <h2 className="text-3xl font-body text-center mb-8">You might also like...</h2>
+                <h2 className="text-3xl font-body text-center mb-8">Você também pode gostar...</h2>
                 <div className="grid grid-cols-1 gap-8">
                     {relatedPosts.map(relatedPost => (
                        <Link href={`/posts/${relatedPost.slug}`} key={relatedPost.id} className="group block">
@@ -133,7 +133,7 @@ export default async function PostPage({ params }: PostPageProps) {
                                 </CardTitle>
                                 <p className="text-muted-foreground font-headline leading-relaxed mb-4">{relatedPost.excerpt}</p>
                                 <div className="flex items-center text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Read More <ArrowRight className="ml-2 h-4 w-4" />
+                                    Leia Mais <ArrowRight className="ml-2 h-4 w-4" />
                                 </div>
                             </CardContent>
                          </Card>
@@ -147,7 +147,7 @@ export default async function PostPage({ params }: PostPageProps) {
           
           <section className="flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">
-                <h3 className="font-headline font-semibold text-lg">Share this post:</h3>
+                <h3 className="font-headline font-semibold text-lg">Compartilhe este post:</h3>
                 <div className="flex items-center gap-2">
                     <Button variant="outline" size="icon" asChild>
                         <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer">
@@ -167,7 +167,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 </div>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Category:</span>
+                <span>Categoria:</span>
                 <Link href="/posts" className="text-primary hover:underline">{post.category}</Link>
             </div>
           </section>
@@ -177,7 +177,7 @@ export default async function PostPage({ params }: PostPageProps) {
       </main>
       <footer className="bg-background border-t py-8 relative z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p className="font-headline">&copy; {new Date().getFullYear()} Amigas Blog. All Rights Reserved.</p>
+          <p className="font-headline">&copy; {new Date().getFullYear()} Entre Amigas. Todos os Direitos Reservados.</p>
         </div>
       </footer>
     </div>
