@@ -58,7 +58,7 @@ export default function AdminPage() {
   const { isSubmitting } = form.formState;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/a4566907-4030-4f23-a271-8f2aa7d12a4e"; 
+    const webhookUrl = "https://n8n.bernardolobo.com.br:5678/webhook-test/novo-post"; 
 
     try {
       await fetch(webhookUrl, {
