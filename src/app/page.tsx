@@ -22,9 +22,8 @@ export default async function Home() {
           <Image
             src="/hero-home-1.png"
             alt="Hero background"
-            layout="fill"
-            objectFit="cover"
-            className="z-0"
+            fill
+            className="object-cover"
             priority
           />
           <div className="absolute inset-0 bg-black/60 z-10" />
@@ -50,7 +49,6 @@ export default async function Home() {
                             alt={featuredPost.title}
                             fill
                             className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                            priority
                             data-ai-hint={`${featuredPost.slug.split('-').slice(0, 2).join(' ')}`}
                          />
                     </div>

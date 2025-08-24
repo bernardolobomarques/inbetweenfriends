@@ -71,9 +71,8 @@ export default function PostsPage() {
             <Image
                 src="/all-posts-hero.png"
                 alt="All Posts Hero Background"
-                layout="fill"
-                objectFit="cover"
-                className="z-0"
+                fill
+                className="object-cover"
                 priority
             />
             <div className="absolute inset-0 bg-black/60 z-10" />
