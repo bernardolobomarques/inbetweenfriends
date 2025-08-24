@@ -10,6 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Twitter, Facebook, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { PostCard } from '@/components/post-card';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight } from 'lucide-react';
 
 export async function generateStaticParams() {
   const posts: Post[] = await getPosts();
@@ -61,7 +64,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const allPosts = await getPosts();
   const relatedPosts = allPosts
     .filter(p => p.category === post.category && p.slug !== post.slug)
-    .slice(0, 3);
+    .slice(0, 2);
 
 
   return (
@@ -100,6 +103,49 @@ export default async function PostPage({ params }: PostPageProps) {
 
           <Separator className="my-12" />
 
+          <section className="bg-card rounded-lg p-8 flex items-start gap-6 mb-12">
+            <Image src={post.authorImage} alt={post.authorName} width={80} height={80} className="rounded-full hidden sm:block" data-ai-hint="person portrait" />
+            <div>
+                <h3 className="font-body text-2xl font-semibold mb-2">About {post.authorName}</h3>
+                <p className="font-headline text-muted-foreground">{post.authorBio}</p>
+            </div>
+          </section>
+
+          {relatedPosts.length > 0 && (
+            <section className="mb-12">
+                <h2 className="text-3xl font-body text-center mb-8">You might also like...</h2>
+                <div className="grid grid-cols-1 gap-8">
+                    {relatedPosts.map(relatedPost => (
+                       <Link href={`/posts/${relatedPost.slug}`} key={relatedPost.id} className="group block">
+                         <Card className="overflow-hidden h-full flex flex-col md:flex-row transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 bg-card border-border/50">
+                            <div className="relative aspect-[4/3] w-full md:w-1/3 md:aspect-[1/1] overflow-hidden">
+                                <Image
+                                    src={relatedPost.featuredImage}
+                                    alt={relatedPost.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                                    data-ai-hint={`${relatedPost.slug.split('-').slice(0, 2).join(' ')}`}
+                                />
+                            </div>
+                            <CardContent className="p-6 flex-grow flex flex-col justify-center w-full md:w-2/3">
+                                <Badge variant="secondary" className="mb-2 w-fit">{relatedPost.category}</Badge>
+                                <CardTitle className="font-body text-2xl mb-2 text-foreground group-hover:text-primary transition-colors">
+                                    {relatedPost.title}
+                                </CardTitle>
+                                <p className="text-muted-foreground font-headline leading-relaxed mb-4">{relatedPost.excerpt}</p>
+                                <div className="flex items-center text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    Read More <ArrowRight className="ml-2 h-4 w-4" />
+                                </div>
+                            </CardContent>
+                         </Card>
+                       </Link>
+                    ))}
+                </div>
+            </section>
+          )}
+
+          <Separator className="my-12" />
+          
           <section className="flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">
                 <h3 className="font-headline font-semibold text-lg">Share this post:</h3>
@@ -127,30 +173,8 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           </section>
 
-          <Separator className="my-12" />
-
-          <section className="bg-card rounded-lg p-8 flex items-start gap-6">
-            <Image src={post.authorImage} alt={post.authorName} width={80} height={80} className="rounded-full hidden sm:block" data-ai-hint="person portrait" />
-            <div>
-                <h3 className="font-body text-2xl font-semibold mb-2">About {post.authorName}</h3>
-                <p className="font-headline text-muted-foreground">{post.authorBio}</p>
-            </div>
-          </section>
-
         </article>
 
-        {relatedPosts.length > 0 && (
-            <section className="bg-secondary/50 py-20 -mt-16 relative z-10">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-4xl font-body text-center mb-12 text-secondary-foreground">You might also like...</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {relatedPosts.map(relatedPost => (
-                            <PostCard key={relatedPost.id} post={relatedPost} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-        )}
       </main>
       <footer className="bg-background border-t py-8 relative z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
